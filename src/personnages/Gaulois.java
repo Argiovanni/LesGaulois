@@ -31,11 +31,20 @@ public class Gaulois {
 		return "Gaulois [nom=" + nom + ", force=" + force + 
 				", effetpotion=" + effetpotion + "]";
 	}
+	
+	public void boirePotion(int forcePotion) {
+		effetpotion *= forcePotion;
+		force += effetpotion;
+		parler("Merci Druide, je sens que ma force est " + forcePotion + " fois décuplée.");
+	}
+	
 	public static void main(String[] args) {
-	Gaulois asterix = new Gaulois("Astérix", 8);
+	Gaulois asterix = new Gaulois("Astérix", 2);
 	Romain cesar = new Romain("César", 6);
 	System.out.println(asterix);
 	asterix.parler("Bonjour ! ");
+	asterix.frapper(cesar);
+	asterix.boirePotion(4);
 	asterix.frapper(cesar);
 	}
 	
