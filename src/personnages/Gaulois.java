@@ -34,7 +34,7 @@ public class Gaulois {
 	
 	public void boirePotion(int forcePotion) {
 		effetpotion *= forcePotion;
-		force += effetpotion;
+		force *= effetpotion;
 		parler("Merci Druide, je sens que ma force est " + forcePotion + " fois décuplée.");
 	}
 	

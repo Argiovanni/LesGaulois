@@ -2,7 +2,7 @@ package personnages;
 
 import java.util.Random;
 
-// TODO : finir TP ( fin page 18 + page 19
+
 public class Druide {
 	private String nom;
 	private int effetPotionMin;
