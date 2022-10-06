@@ -3,6 +3,8 @@ package personnages;
 public class Romain {
 	private String nom;
 	private int force;
+	private Equipement[] equipement = new Equipement[2];
+	private int nbEquipement = 0;
 	
 	private boolean forceEstPositif() {
 		boolean forcePositif = true;
@@ -33,6 +35,8 @@ public class Romain {
 		return "Le romain " + nom + " : ";
 	}
 	
+	// TODO: faire methode s'equiper avec equipement en param
+	
 	public void recevoirCoup(int forceCoup) {
 		assert forceEstPositif();
 		int variant = force;
@@ -57,5 +61,9 @@ public class Romain {
 		Romain cesar = new Romain("César", 6);
 		cesar.parler("Ave moi !");
 		cesar.recevoirCoup(8);
+		System.out.println("les equipement des romains sont : ");
+		for (Equipement armure : Equipement.values()) {
+			System.out.println("- " + armure );
+		}
 	}
 }
