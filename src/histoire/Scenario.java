@@ -4,7 +4,7 @@ import personnages.Druide;
 import personnages.Equipement;
 import personnages.Gaulois;
 import personnages.Romain;
-
+//TODO: finir debug + faire classe musee pour transition Ocaml
 public class Scenario {
 
 	public static void main(String[] args) {

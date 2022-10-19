@@ -69,19 +69,6 @@ public class Romain {
 		}
 	}
 	
-//	public void recevoirCoup(int forceCoup) {
-//		assert forceEstPositif();
-//		int variant = force;
-//		force = getForce() - forceCoup;
-//		assert forceADiminuee(variant);
-//		if (getForce() > 0) {
-//			parler("Aïe");
-//		} else {
-//			force = 0;
-//			parler("J'abandonne...");
-//		}
-//	}
-	
 	// TP3
 	
 	private int calculResistanceEquipement(int forceCoup) {
@@ -121,40 +108,27 @@ public class Romain {
 	public Equipement[] recevoirCoup(int forceCoup) {
 		Equipement[] equipementEjecte = null;
 		// precondition
-		assert force >= 0;
 		if (force == 0) {
 			System.out.println("le Romain "+ nom +" est KO, il ne peut plus recevoir de coups.");
 			return equipementEjecte;
 		}
+		assert force >= 0;
 		int oldForce = force;
 		forceCoup = calculResistanceEquipement(forceCoup);
-		if (forceCoup > 0) { // only modify force when forcecoup is positiv
-			force -= forceCoup;
-		}
-		if (force > 0) {
-			parler("Aïe");
-		} else {
+		if (forceCoup >= force) {
 			force = 0;
 			equipementEjecte = ejecterEquipement();
 			parler("J'abandonne...");
+		} else { // only modify force when forcecoup is positiv
+			force -= forceCoup;
+			parler("Aïe");
 		}
-		
-//		if (force == 0) {
-//			parler("Aïe");
-//		} else {
-//			equipementEjecte = ejecterEquipement();
-//			parler("J'abandonne...");
-//		}
 		// post condition la force à diminuer
-		assert force <= oldForce;
 		return equipementEjecte;
 	}
 	
 	// fin tp3
-	
-//	private boolean forceADiminuee(int oldValue) {
-//		return force < oldValue;
-//	}
+
 
 	public static void main(String[] args) {
 		System.out.println("les equipement des romains sont : ");

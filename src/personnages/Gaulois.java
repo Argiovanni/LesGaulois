@@ -3,7 +3,7 @@ package personnages;
 public class Gaulois {
 	private String nom;
 	private int force; 
-	private int nbTrophees;
+	private int nbTrophees = 0;
 	private int effetPotion = 1;
 	private Equipement[] trophees = new Equipement[100];
 	
@@ -19,16 +19,6 @@ public class Gaulois {
 	public void parler(String texte) {
 		System.out.println(prendreParole() + "<<" + texte + ">>");
 	}
-	
-//	private String prendreParole() {
-//		return "Le gaulois " + nom + " : ";
-//	}
-	
-//	public void frapper(Romain romain) {
-//		System.out.println(nom + " envoie un grand coup dans la mâchoire de "
-//					+ romain.getNom());
-//		romain.recevoirCoup(force / 3);
-//	}
 	
 	@Override
 	public String toString() {
@@ -55,6 +45,20 @@ public class Gaulois {
 		}
 	}
 	
+	public void faireUneDonnation (Musee musee) {
+		if (nbTrophees > 0) {
+			parler("Je donne au musee tous mes trophees :");
+			do {
+				musee.donnerTrophee(this, trophees[nbTrophees -1]);
+				System.out.println("- "+ trophees[nbTrophees -1].toString());
+				trophees[nbTrophees -1] = null;  // 'supprime' trophee
+				nbTrophees --;
+				
+			} while (nbTrophees > 0);
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 	Gaulois asterix = new Gaulois("Astérix", 2);
 	Romain cesar = new Romain("César", 6);
@@ -63,6 +67,7 @@ public class Gaulois {
 	asterix.frapper(cesar);
 	asterix.boirePotion(4);
 	asterix.frapper(cesar);
+	System.out.println(asterix.trophees[2]);
 	}
 	
 }
