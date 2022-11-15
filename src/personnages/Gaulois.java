@@ -32,14 +32,16 @@ public class Gaulois {
 	}
 	
 	//TP3
-	
+	public int getForceCoup() {
+		return (force / 3) * effetPotion;
+	}
 	private String prendreParole() {
 		return "Le gaulois " + nom + " : ";
 	}
 	
 	public void frapper(Romain romain) {
 		System.out.println(nom + " envoie un grand coup dans la mâchoire de " + romain.getNom());
-		Equipement[] trophy = romain.recevoirCoup((force / 3) * effetPotion);
+		Equipement[] trophy = romain.recevoirCoup(getForceCoup());
 		for (int i = 0; trophy != null && i < trophy.length; i++, nbTrophees++) {
 			this.trophees[nbTrophees] = trophy[i];
 		}
@@ -48,26 +50,26 @@ public class Gaulois {
 	public void faireUneDonnation (Musee musee) {
 		if (nbTrophees > 0) {
 			parler("Je donne au musee tous mes trophees :");
-			do {
-				musee.donnerTrophee(this, trophees[nbTrophees -1]);
-				System.out.println("- "+ trophees[nbTrophees -1].toString());
-				trophees[nbTrophees -1] = null;  // 'supprime' trophee
-				nbTrophees --;
-				
-			} while (nbTrophees > 0);
+			for (int i = 0; i < nbTrophees; i++) {
+				musee.donnerTrophee(this, trophees[i]);
+				System.out.println("- "+ trophees[i].toString());
+				trophees[i] = null;  // 'supprime' trophee
+			}
+			nbTrophees = 0;
 		}
-		
 	}
 	
 	public static void main(String[] args) {
-	Gaulois asterix = new Gaulois("Astérix", 2);
+	Gaulois asterix = new Gaulois("Astérix", 20);
 	Romain cesar = new Romain("César", 6);
+	Musee museum = new Musee();
+	cesar.sEquiper(Equipement.B);
 	System.out.println(asterix);
 	asterix.parler("Bonjour ! ");
+	asterix.boirePotion(9);
 	asterix.frapper(cesar);
-	asterix.boirePotion(4);
-	asterix.frapper(cesar);
-	System.out.println(asterix.trophees[2]);
+	System.out.println(asterix.trophees);
+	asterix.faireUneDonnation(museum);
 	}
 	
 }

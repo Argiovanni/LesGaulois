@@ -71,25 +71,31 @@ public class Romain {
 	
 	// TP3
 	
-	private int calculResistanceEquipement(int forceCoup) {
-		String texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
-		int resistanceEquipement = 0;
+	public int getResistance() {
+		int resistance = 0;
 		if (nbEquipement != 0) {
-			texte += "\nMais heureusement, grace à mon équipement sa force est diminué de ";
 			for (int i = 0; i < nbEquipement; i++) {
 				if ((equipements[i] != null && equipements[i].equals(Equipement.B)) == true) {
-					resistanceEquipement += 8;
+					resistance += 8;
 				} else {
-					System.out.println("Equipement casque");
-					resistanceEquipement += 5;
-				}
-			}
-			texte += resistanceEquipement + "!";
+					resistance += 5;	
+		}}}
+		return resistance;
+	}
+	
+	private int calculResistanceEquipement(int forceCoup) {
+		String texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
+		int resistanceEquipement = getResistance();
+		if (nbEquipement != 0) {
+			texte += "\nMais heureusement, grace à mon équipement sa force est diminué de "+ resistanceEquipement + "!";
 		}
 		parler(texte);
 		forceCoup -= resistanceEquipement;
-		return forceCoup;
+		if (forceCoup <= 0) {
+			return 0;
 		}
+		return forceCoup;
+	}
 	
 	private Equipement[] ejecterEquipement() {
 		Equipement[] equipementEjecte = new Equipement[nbEquipement];
@@ -108,24 +114,26 @@ public class Romain {
 	public Equipement[] recevoirCoup(int forceCoup) {
 		Equipement[] equipementEjecte = null;
 		// precondition
-		if (force == 0) {
-			System.out.println("le Romain "+ nom +" est KO, il ne peut plus recevoir de coups.");
-			return equipementEjecte;
-		}
-		assert force >= 0;
+		
+		assert force > 0;
 		int oldForce = force;
+		
 		forceCoup = calculResistanceEquipement(forceCoup);
-		if (forceCoup >= force) {
-			force = 0;
+		
+		force -= forceCoup;
+		if (forceCoup == 0) {
+			parler("AHAHAH, même pas mal !!!");
+		} else if (force > 0) {
+			parler("Aïe");
+		} else {
 			equipementEjecte = ejecterEquipement();
 			parler("J'abandonne...");
-		} else { // only modify force when forcecoup is positiv
-			force -= forceCoup;
-			parler("Aïe");
 		}
 		// post condition la force à diminuer
+		assert force <= oldForce;
 		return equipementEjecte;
 	}
+	
 	
 	// fin tp3
 
